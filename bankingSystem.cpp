@@ -4,11 +4,9 @@
 
 using namespace std;
 
-vector<int> bankNumbers;
-
 class bankAccount {
     public:
-        int bankAccountNumber;
+        int bankAccountNumber = 0;
         int balance;
         int pin;
         string name;
@@ -19,7 +17,6 @@ vector<bankAccount> bankAccounts;
 int createAccount (int amount, int pin, string name) {
     int bankNumber = bankAccounts.size() + 1;
     bankAccount account;
-    bankNumbers[bankNumber-1] = bankNumber;
     account.bankAccountNumber = bankNumber;
     account.balance = amount;
     account.pin = pin;
@@ -29,7 +26,7 @@ int createAccount (int amount, int pin, string name) {
 }
 
 void transfer (int transferAmount, int bankNumber1, int bankNumber2) {
-    if (bankNumbers[bankNumber1-1] == 0 || bankNumbers[bankNumber2-1] == 0)
+    if (bankAccounts[bankNumber1-1].bankAccountNumber == 0 || bankAccounts[bankNumber2-1].bankAccountNumber == 0)
         cout << "The bank account was not found" << endl;
     else {
         bankAccounts[bankNumber1-1].balance -= transferAmount;
@@ -39,7 +36,7 @@ void transfer (int transferAmount, int bankNumber1, int bankNumber2) {
 }
 
 void withdrawal (int withdrawalAmount, int bankNumber) {
-    if (bankNumbers[bankNumber-1] == 0)
+    if (bankAccounts[bankNumber-1].bankAccountNumber == 0)
         cout << "The bank account was not found" << endl;
     else
         bankAccounts[bankNumber-1].balance -= withdrawalAmount;
@@ -47,7 +44,7 @@ void withdrawal (int withdrawalAmount, int bankNumber) {
 }
 
 void deposit (int depositAmount, int bankNumber) {
-    if (bankNumbers[bankNumber-1] == 0)
+    if (bankAccounts[bankNumber-1].bankAccountNumber == 0)
         cout << "The bank account was not found" << endl;
     else
         bankAccounts[bankNumber-1].balance += depositAmount;
@@ -55,7 +52,7 @@ void deposit (int depositAmount, int bankNumber) {
 }
 
 void checkBalance (int bankNumber) {
-    if (bankNumbers[bankNumber-1] == 0)
+    if (bankAccounts[bankNumber-1].bankAccountNumber == 0)
         cout << "The bank account was not found" << endl;
     else
         cout << "Your balance is " << bankAccounts[bankNumber-1].balance << endl;
@@ -65,10 +62,10 @@ void checkBalance (int bankNumber) {
 int main () {
     string command, name;
     int amount, bankNumber, bankNumber1, bankNumber2, pin;
+    bankAccounts.reserve(1000);
 
-    bankNumbers.reserve(1000);
     for (int i=0; i < 1000; i++) {
-        bankNumbers[i] = 0;
+        bankAccounts[i].bankAccountNumber = 0;
     }
 
     cout << "Welcome to the Bank" << endl;
