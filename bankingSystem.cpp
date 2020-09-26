@@ -31,23 +31,35 @@ void transfer (int transferAmount, int bankNumber1, int bankNumber2) {
     else {
         bankAccounts[bankNumber1-1].balance -= transferAmount;
         bankAccounts[bankNumber2-1].balance += transferAmount;
+        cout << "Transfer was successful" << endl;
     }
     cin.ignore();
 }
 
 void withdrawal (int withdrawalAmount, int bankNumber) {
+    int pin;
     if (bankAccounts[bankNumber-1].bankAccountNumber == 0)
         cout << "The bank account was not found" << endl;
-    else
-        bankAccounts[bankNumber-1].balance -= withdrawalAmount;
+    else {
+        cout << "Please enter your pin" << endl;
+        cin >> pin;
+        if (bankAccounts[bankNumber-1].pin == pin) {
+            bankAccounts[bankNumber-1].balance -= withdrawalAmount;
+            cout << "Withdrawal was successful" << endl;
+        }
+        else
+            cout << "Incorrect pin";
+    }
     cin.ignore();
 }
 
 void deposit (int depositAmount, int bankNumber) {
     if (bankAccounts[bankNumber-1].bankAccountNumber == 0)
         cout << "The bank account was not found" << endl;
-    else
+    else {
         bankAccounts[bankNumber-1].balance += depositAmount;
+        cout << "Deposit was successful" << endl;
+    }
     cin.ignore();
 }
 
